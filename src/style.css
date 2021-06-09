@@ -1,4 +1,4 @@
-
+@import url('leaflet.css');
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;300&display=swap');
 
@@ -78,4 +78,23 @@ h1 {
     height: 200px;
     width: 200px;
     border-radius: 30px;
+}
+
+h2 {
+    margin-left: 10px;
+}
+
+#address { 
+    margin-left: 20px;
+}
+
+#mapid {
+    margin-top: 80px;
+    height: 500px;
+    width: 800px;
+    margin-bottom: 200px;
+}
+
+#belowTheNavbar {
+    background-color: #fdebd3;
 }

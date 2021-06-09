@@ -1,57 +1,78 @@
 import { homepageView } from "./homepage"
 import {menuView} from './menu'
+import {contactView} from './contact'
 
-function navbarView(container, activePage) {
+
+
+function navbarUpdate(pages) {
+    let activePage = pages.filter(e => {return e.active})
+    console.log(activePage)
+    pages.forEach(page => {
+        if(page.active) {
+            let button = document.getElementById(page.page);
+            button.removeEventListener('mouseover', page.ul)
+            button.removeEventListener('mouseleave', page.removeUL)
+            button.style.borderBottomStyle = 'solid'
+            button.style.borderBottomColor = '#274f72'
+        }
+
+        else {
+            let button = document.getElementById(page.page);
+            button.style.borderBottomStyle = 'none'
+            button.addEventListener('mouseover', page.ul)
+            button.addEventListener('mouseleave', page.removeUL)
+        }
+    })
+}
+
+function navbarView(container, pages) {
     let navbar = document.createElement('div')
-navbar.id = 'navbar'
+    navbar.id = 'navbar'
 
-let homeButton = document.createElement('p')
-let menuButton = document.createElement('p')
-let contactButton = document.createElement('p')
+    let homeButton = document.createElement('p')
+    let menuButton = document.createElement('p')
+    let contactButton = document.createElement('p')
 
-homeButton.classList.add('navbarButton')
-menuButton.classList.add('navbarButton')
-contactButton.classList.add('navbarButton')
+    homeButton.classList.add('navbarButton')
+    menuButton.classList.add('navbarButton')
+    contactButton.classList.add('navbarButton')
 
-homeButton.innerHTML = 'Home'
-menuButton.innerHTML = 'Menu'
-contactButton.innerHTML = 'Contact'
+    homeButton.id = 'Home'
+    menuButton.id = 'Menu'
+    contactButton.id = 'Contact'
 
-let navbarArray = [homeButton,menuButton,contactButton]
+    console.log('howide')
+    homeButton.innerHTML = 'Home'
+    menuButton.innerHTML = 'Menu'
+    contactButton.innerHTML = 'Contact'
 
-navbarArray.forEach((button) => {
-    button.style.cursor = 'pointer'
-    if (button.innerHTML == activePage) {
-        button.style.paddingBottom = '0px';
-        button.style.borderBottomStyle = 'solid';
-        button.style.borderBottomColor = '#264e70';
-    }
+    navbar.appendChild(homeButton)
+    navbar.appendChild(menuButton)
+    navbar.appendChild(contactButton)
 
-    else {
-        button.addEventListener('mouseover', ()=> {
-            button.style.borderBottomStyle = 'dotted';
-            button.style.borderBottomColor = '#679ccb';
-            button.style.cursor = 'pointer'
-        })
-        button.addEventListener('mouseleave', ()=> {
-            button.style.borderBottomStyle = 'none';
-        })
-    }
+    container.appendChild(navbar)
+    document.querySelector('body').appendChild(container)
+    navbarUpdate(pages)
 
-    button.addEventListener('click', () => {
-        activePage = button.innerHTML
-        if (activePage=='Home') {homepageView()}
-        if (activePage=='Menu') {menuView()}
-        if (activePage=='Contact') {contactView()}
+    let navbarArray = Array.from(document.getElementsByClassName('navbarButton'))
+    navbarArray.forEach((button) => {
+        button.addEventListener('click', () => {
+            pages.forEach(page => {
+                if(page.page==button.id) {
+                    page.active = true
+                }
+                else {
+                    page.active = false
+                }
+            })
+            navbarUpdate(pages)
+            pages.forEach(page => {
+                if(page.active) {
+                    page.view()
+                }
+            })
     })
 })
-
-
-navbar.appendChild(homeButton)
-navbar.appendChild(menuButton)
-navbar.appendChild(contactButton)
-
-container.appendChild(navbar)
 }
 
 export {navbarView}

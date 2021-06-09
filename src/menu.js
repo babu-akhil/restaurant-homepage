@@ -1,5 +1,9 @@
 
 import bananaPorridgeImage from './menu-images/banana-porridge.jpg'
+import chickenImage from './menu-images/chicken.jpg'
+import khichdiImage from './menu-images/khichdi.jpg'
+import { navbarView } from './navbar'
+
 
 const itemFactory = (title, description, price, image) => {
     let itemContainer = document.createElement('li')
@@ -23,7 +27,7 @@ const itemFactory = (title, description, price, image) => {
     return itemContainer
 }
 
-function menuView(container, activePage) {
+function menuView() {
     let subContainer = document.getElementById('belowTheNavbar')
     subContainer.innerHTML = ''
 
@@ -35,6 +39,13 @@ function menuView(container, activePage) {
       , '$20.00', bananaPorridgeImage)
     menuList.appendChild(firstItem)
 
+    let secondItem = itemFactory('Chicken and Beans', "A classic lunch recipe with slow roasted chicken and sauteed beans cooked in our special chef's sauce. Served with a helping of mashed potatoes.",
+    '$30.00', chickenImage)
+    menuList.appendChild(secondItem)
+
+    let thirdItem = itemFactory('Factori Special Khichdi', 'A dish inspired from a favourite of our beloved factorians, slow cooked dal and rice mix flavoured with the subtle yet savoury spices of the subcontinent.',
+    '$20.00', khichdiImage)
+    menuList.appendChild(thirdItem)
     subContainer.appendChild(menuList)
 }
 

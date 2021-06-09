@@ -1,4 +1,8 @@
-function homepageView(container, kitchenImage) {
+import kitchenImage from './kitchen.jpg'
+
+function homepageView() {
+    let container = document.getElementById('belowTheNavbar')
+    container.innerHTML = ''
     let homepageContainer = document.createElement('div')
     homepageContainer.id = 'homepage'
     let statement = document.createElement('p')
